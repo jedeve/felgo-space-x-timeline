@@ -18,7 +18,7 @@ Item {
     // private
     QtObject {
         id: _
-        property string todoUrl: "https://api.spacexdata.com/v3/launches?limit=10"
+        property string launchUrl: "https://api.spacexdata.com/v3/launches"
 
         function fetch(url, success, error)
         {
@@ -43,11 +43,11 @@ Item {
 
     function getLaunches(success, error)
     {
-        _.fetch(_.todoUrl, success, error)
+        _.fetch(_.launchUrl+"?order=desc&limit=10", success, error)
     }
 
     function getLaunchById(id, success, error)
     {
-        _.fetch(_.launchUrl+"/"+id, success, error)
+        _.fetch(_.launchUrl+"?flight_number="+id, success, error)
     }
 }

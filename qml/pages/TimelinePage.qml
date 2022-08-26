@@ -15,12 +15,12 @@ Page {
     // A ViewModel for JSON data that offers best integration and performance with list views
     JsonListModel {
         id: listModel
-        source: dataModel.launches // show todos from data model
+        source: dataModel.launches // show launches from data model
         keyField: "id"
         fields: ["id", "mission_name", "launch_date_utc", "rocket", "launch_site", "flight_number"]
     }
 
-    // show sorted/filterd todos of data model
+    // show sorted/filterd launches of data model
     AppListView {
         id: listView
 
