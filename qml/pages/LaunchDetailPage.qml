@@ -20,7 +20,11 @@ Page {
     }
 
     GridLayout {
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
         columns: 2
+        columnSpacing: dp(50)
+        rowSpacing: dp(50)
 
         Loader {
             property string objectTitle: "Customer"
@@ -61,12 +65,12 @@ Page {
             Text {
                 text: objectTitle
                 font.weight: Font.Bold
-                font.pixelSize: sp(16)
+                font.pixelSize: sp(24)
                 font.family: "Helvetica"
             }
             Text {
                 text: objectValue
-                font.pixelSize: sp(12)
+                font.pixelSize: sp(20)
                 font.family: "Helvetica"
             }
         }

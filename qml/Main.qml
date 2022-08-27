@@ -23,7 +23,7 @@ App {
         }
 
         // fetch todo list data
-        logic.fetchLaunches()
+        logic.fetchLaunches(null)
     }
 
     Navigation {

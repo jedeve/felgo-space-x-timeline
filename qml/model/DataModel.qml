@@ -10,6 +10,7 @@ Item {
 
     // model data properties
     readonly property alias launches: _.launches
+    readonly property alias finalResults: _.finalResults
     readonly property alias launchDetails: _.launchDetails
 
     // action error signals
@@ -20,7 +21,7 @@ Item {
     Connections {
         id: logicConnection
 
-        // action 1 - fetchTodos
+        // action 1 - fetchLaunches
         onFetchLaunches: {
             // check cached value first
             var cached = cache.getValue("Launches")
@@ -28,11 +29,12 @@ Item {
                 _.launches = cached
 
                 // load from api
-                api.getLaunches(
-                function(data) {
+                api.getLaunches(filter, 
+                function(data, finalResults) {
                 // cache data before updating model property
                 cache.setValue("launches", data)
                 _.launches = data
+                _.finalResults = finalResults
             },
             function(error) {
             // action failed if no cached data
@@ -91,6 +93,7 @@ Item {
 
     // data properties
     property var launches: []  // Array
+    property var finalResults: false  // Bool
     property var launchDetails: ({}) // Map
 }
 }
