@@ -46,7 +46,8 @@ Item {
     function getLaunches(filter, success, error)
     {
         if (filter) {
-            filterValue = filter.replace(" ", "").toLowerCase()
+            filterValue = filter.split(" ").join()
+            filterValue = filterValue.toLowerCase()
             limit = 10
         }
 

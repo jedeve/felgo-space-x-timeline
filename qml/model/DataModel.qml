@@ -55,6 +55,7 @@ Item {
 
         api.getLaunchById(id,
         function(data) {
+        
         // cache data first
         cache.setValue("launch_"+id, data[0])
         _.launchDetails[id] = data[0]

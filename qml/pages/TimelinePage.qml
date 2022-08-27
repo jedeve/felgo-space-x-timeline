@@ -38,8 +38,8 @@ Page {
         Item {
             property bool isLastItem: index === dataModel.launches.length - 1
 
-            width: dp(440); height: dp(580)
-            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - dp(20); height: dp(500)
+            // anchors.horizontalCenter: parent.horizontalCenter
 
             MouseArea {
                 anchors.fill: parent
@@ -48,12 +48,49 @@ Page {
                 onClicked: !isLastItem ? page.navigationStack.popAllExceptFirstAndPush(detailPageComponent, { launchId: flight_number, launchName: mission_name }): !dataModel.finalResults ? logic.fetchLaunches(null): null
             }
 
+
+            // Timeline on the right side
+            Rectangle {
+                visible: !dataModel.finalResults || !isLastItem
+                color: "white"
+                width: dp(5)
+                height: index === 0 ? dp(100): parent.height
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+
+
+                Rectangle {
+                    width: dp(40)
+                    height: dp(40)
+                    color: "white"
+                    border.color: "black"
+                    border.width: dp(2)
+                    radius: 100
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: dp(75)
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    Image {
+                        height: 30
+                        source: "../../assets/rocket_icon.png"
+                        fillMode: Image.PreserveAspectFit
+                        anchors.centerIn: parent
+
+
+
+                    }
+
+                }
+            }
+
             Row {
                 spacing: -20
+                anchors.fill: parent
+                anchors.rightMargin: dp(30)
                 Rectangle {
                     color: "white"
-                    width: dp(380)
-                    height: dp(540)
+                    anchors.fill: parent
+                    anchors.margins: dp(20)
                     radius: 10
 
                     Text {
@@ -86,11 +123,12 @@ Page {
                                 }
                                 Column {
                                     Text {
+                                        width: parent.width
                                         text: mission_name
                                         font.weight: Font.Bold
-                                        font.pixelSize: sp(24)
+                                        font.pixelSize: sp(20)
                                         font.family: "Helvetica"
-
+                                        wrapMode: Text.WordWrap
 
                                     }
                                     Text {
@@ -103,7 +141,7 @@ Page {
                             }
                         }
                         Column{
-                            Layout.fillWidth: true
+                            width: parent.width
                             Rectangle {
                                 width: parent.width
                                 height: parent.width * (9/16)
@@ -175,8 +213,10 @@ Page {
 
                 Rectangle {
                     visible: !dataModel.finalResults || !isLastItem
+                    anchors.right: parent.right
+                    anchors.rightMargin: dp(10)
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 100
+                    anchors.bottomMargin: dp(80)
                     rotation: 45
                     color: "white"
                     width: dp(30)
@@ -185,39 +225,7 @@ Page {
 
 
             }
-            // Timeline on the right side
-            Rectangle {
-                visible: !dataModel.finalResults || !isLastItem
-                color: "white"
-                width: dp(5)
-                height: index === 0 ? dp(150): dp(580)
-                anchors.bottom: parent.bottom
-                anchors.right: parent.right
 
-
-                Rectangle {
-                    width: 50
-                    height: 50
-                    color: "white"
-                    border.color: "black"
-                    border.width: 3
-                    radius: 100
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 145
-                    anchors.horizontalCenter: parent.horizontalCenter
-
-                    Image {
-                        height: 30
-                        source: "../../assets/rocket_icon.png"
-                        fillMode: Image.PreserveAspectFit
-                        anchors.centerIn: parent
-
-
-
-                    }
-
-                }
-            }
 
         }
 
@@ -340,8 +348,9 @@ Page {
         return data.toString('YYYY-MM-dd')
     }
 
-     function filterLaunches() {
-        const filter = cbItems.get(filterComboBox.currentIndex).value + "," + textEdit.text
+    function filterLaunches()
+    {
+        const filter = cbItems.get(filterComboBox.currentIndex).value + ", " + textEdit.text
         logic.fetchLaunches(filter)
         filtersItem.visible = false
     }
