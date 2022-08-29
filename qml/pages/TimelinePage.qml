@@ -13,8 +13,6 @@ Page {
         anchors.centerIn: parent
     }
 
-    // JsonListModel
-    // A ViewModel for JSON data that offers best integration and performance with list views
     JsonListModel {
         id: listModel
         source: dataModel.launches // show launches from data model

@@ -5,9 +5,6 @@ Item {
     // property to configure target dispatcher / logic
     property alias dispatcher: logicConnection.target
 
-    // whether api is busy (ongoing network requests)
-    readonly property bool isBusy: api.busy
-
     // model data properties
     readonly property alias launches: _.launches
     readonly property alias finalResults: _.finalResults

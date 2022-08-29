@@ -2,22 +2,12 @@ import QtQuick 2.0
 import Felgo 3.0
 
 Item {
-
-    // loading state
-    readonly property bool busy: HttpNetworkActivityIndicator.enabled
-
     property int limit: 10
 
     property string filterValue: ""
 
     // configure request timeout
     property int maxRequestTimeout: 5000
-
-    // initialization
-    Component.onCompleted: {
-        // immediately activate loading indicator when a request is started
-        HttpNetworkActivityIndicator.setActivationDelay(0)
-    }
 
     // private
     QtObject {
