@@ -231,9 +231,9 @@ Page {
 
     }
 
-    //Filters
+    //Filter options
     Item {
-        property bool filtersOpen: false
+        // property bool filtersOpen: false
 
         anchors.left: parent.left
         anchors.top: parent.top
@@ -244,17 +244,22 @@ Page {
             columns: 1
             columnSpacing: dp(50)
             rowSpacing: dp(10)
-            visible: false
+            visible: opacity != 0
+            opacity: 0
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.margins: dp(8)
+
+             Behavior on opacity {
+         NumberAnimation { duration: 100 } // ... animate to reach new value within 500ms
+       }
 
             Rectangle {
                 anchors.fill: parent
                 anchors.margins: -dp(10)
                 color: "white"
                 border.color: black
-                border.width: 2
+                border.width: dp(0)
                 radius: 30
             }
 
@@ -306,6 +311,7 @@ Page {
 
         }
 
+        // Filter button
         Item {
             width: dp(50)
             height: dp(50)
@@ -326,9 +332,11 @@ Page {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
                 hoverEnabled: false
-                onClicked: filtersItem.visible = !filtersItem.visible
+                onClicked: filtersItem.opacity = filtersItem.visible ? 0 : 1
             }
         }
+
+        
     }
 
 
@@ -352,11 +360,7 @@ Page {
     {
         const filter = cbItems.get(filterComboBox.currentIndex).value + ", " + textEdit.text
         logic.fetchLaunches(filter)
-        filtersItem.visible = false
+        filtersItem.opacity = 0
     }
 
-    function f(a, b)
-    {
-        console.log("a is ", a, "b is ", b);
-    }
 }

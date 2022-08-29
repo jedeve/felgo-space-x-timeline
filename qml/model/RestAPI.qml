@@ -46,13 +46,13 @@ Item {
     function getLaunches(filter, success, error)
     {
         if (filter) {
-            filterValue = filter.split(" ").join()
+            filterValue = filter.split(" ").join("")
             filterValue = filterValue.toLowerCase()
             limit = 10
         }
 
         const filterSplit = filterValue.split(',')
-
+        console.log(`${_.launchUrl}?order=desc&limit=${limit}&${filterSplit[0]}=${filterSplit[1]}`)
         _.fetch(`${_.launchUrl}?order=desc&limit=${limit}&${filterSplit[0]}=${filterSplit[1]}`, success, error)
     }
 

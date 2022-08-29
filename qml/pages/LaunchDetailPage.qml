@@ -40,40 +40,6 @@ Page {
         delegate: dataAttributeComponent
     }
 
-
-    // Loader {
-    //     property string objectTitle: "Customer"
-    //     property string objectValue: launchData ? launchData.rocket.second_stage.payloads[0].customers[0]: ""
-    //     sourceComponent: dataAttributeComponent
-    // }
-    // Loader {
-    //     property string objectTitle: "Nationality"
-    //     property string objectValue: launchData ? launchData.rocket.second_stage.payloads[0].nationality: ""
-    //     sourceComponent: dataAttributeComponent
-    // }
-    // Loader {
-    //     property string objectTitle: "Manufacturer"
-    //     property string objectValue: launchData ? launchData.rocket.second_stage.payloads[0].manufacturer: ""
-    //     sourceComponent: dataAttributeComponent
-    // }
-    // Loader {
-    //     property string objectTitle: "Lifespan"
-    //     property string objectValue: launchData ? launchData.rocket.second_stage.payloads[0].orbit_params.lifespan_years ?? "Uknown": ""
-    //     sourceComponent: dataAttributeComponent
-    // }
-    // Loader {
-    //     property string objectTitle: "Flight Number"
-    //     property string objectValue: launchData ? launchData.flight_number: ""
-    //     sourceComponent: dataAttributeComponent
-    // }
-    // Loader {
-    //     property string objectTitle: "Re-used"
-    //     property string objectValue: launchData ? launchData.rocket.second_stage.payloads[0].reused ? "yes": "no": ""
-    //     sourceComponent: dataAttributeComponent
-    // }
-
-
-
     Component {
         id: dataAttributeComponent
         Item {
