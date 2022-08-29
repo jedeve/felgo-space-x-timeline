@@ -2,7 +2,7 @@ import Felgo 3.0
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.4
-
+import QtWebView 1.1
 
 
 Page {
@@ -19,7 +19,7 @@ Page {
         id: listModel
         source: dataModel.launches // show launches from data model
         keyField: "id"
-        fields: ["id", "mission_name", "launch_date_utc", "rocket", "launch_site", "flight_number"]
+        fields: ["id", "mission_name", "launch_date_utc", "rocket", "launch_site", "flight_number", "links"]
     }
 
     // show sorted/filterd launches of data model
@@ -142,11 +142,9 @@ Page {
                         }
                         Column{
                             width: parent.width
-                            Rectangle {
-                                width: parent.width
-                                height: parent.width * (9/16)
-                                color: "black"
-                            }
+                            YouTubeWebPlayer {
+                                    videoId: links.youtube_id
+                                  }
                         }
 
                         Column {
@@ -343,11 +341,6 @@ Page {
     Component {
         id: detailPageComponent
         LaunchDetailPage { }
-    }
-
-    Component {
-        id: filterSearchComponent
-        FilterPage { }
     }
 
     function parseDate(date)
