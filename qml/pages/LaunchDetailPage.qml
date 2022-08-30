@@ -25,39 +25,63 @@ Page {
         source: launchData
     }
 
-
-    GridView {
+    Flickable {
         anchors.fill: parent
+        contentHeight: grid.height
+        contentWidth: parent.width
         anchors.margins: dp(20)
-        cellWidth: parent.width / 2 - dp(40); cellHeight: 80
+        flickableDirection:  Flickable.VerticalFlick
+
+    GridLayout {
+        width: parent.width
+        columns: 2
 
         id: grid
 
+        Repeater {
         // the model specifies the data for the list view
         model: dataListModel
 
         // the delegate is the template item for each entry of the list
         delegate: dataAttributeComponent
+        //flow: GridView.FlowTopToBottom
+        }
     }
-
+}
     Component {
         id: dataAttributeComponent
         Item {
-            width: grid.cellWidth; height: grid.cellHeight
+           Layout.columnSpan: launchData[index][0] === "Details" || isImage(launchData[index][1]) ? 2 : 1
+            Layout.fillWidth: true
+            implicitHeight: key.implicitHeight + value.implicitHeight + image.implicitHeight + dp(20)
+
             Column {
-                // anchors.fill: parent
+                anchors.fill: parent
                 Text {
+                    visible: !isImage(launchData[index][1])
+                    id: key
+                    width: parent.width
                     text: launchData[index][0]
                     font.weight: Font.Bold
                     font.pixelSize: sp(16)
                     font.family: "Helvetica"
-                    wrapMode: Text.WordWrap
+                    wrapMode: Text.Wrap
                 }
                 Text {
+                    visible: !isImage(launchData[index][1])
+                    id: value
+                    width: parent.width - dp(40)
                     text: launchData[index][1]
                     font.pixelSize: sp(12)
                     font.family: "Helvetica"
-                    wrapMode: Text.WordWrap
+                    wrapMode: Text.Wrap
+                }
+                Image {
+                    id: image
+                    visible: isImage(launchData[index][1])
+                    width: parent.width - dp(40)
+                    source: launchData[index][1]
+                    fillMode: Image.PreserveAspectFit
                 }
             }
         }
@@ -70,20 +94,20 @@ Page {
         return dataObjects
     }
 
-    function extractKeys(data)
+    function extractKeys(data, keyName)
     {
         let parsedData = []
         const objectData = Object.entries(data)
         objectData.forEach(object => {
-        if(!object[1]) return
+        if(!object[1] || !isNaN(object[1])) return
 
         if (typeof object[1] === "object")
         {
-            parsedData.push(...extractKeys(object[1]))
+            parsedData.push(...extractKeys(object[1], object[0]))
             return
         }
 
-        let name = `${object[0]}`
+        let name = `${object[0]}` === "0" ? keyName : `${object[0]}`
 
         name = name.split("_")
         name = name.join(" ")
@@ -97,7 +121,10 @@ Page {
 
     })
     return parsedData
-}
+    }
 
+        function isImage(text) {
+            return text.endsWith(".png") || text.endsWith(".jpg")
+        }
 
 }

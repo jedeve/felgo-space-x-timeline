@@ -36,8 +36,10 @@ Page {
         Item {
             property bool isLastItem: index === dataModel.launches.length - 1
 
-            width: parent.width - dp(20); height: dp(500)
-            // anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width > dp(500) ? dp(500) : parent.width - dp(20);
+
+            height: dp(550)
+             anchors.horizontalCenter: parent.horizontalCenter
 
             MouseArea {
                 anchors.fill: parent
@@ -141,8 +143,24 @@ Page {
                         Column{
                             width: parent.width
                             YouTubeWebPlayer {
+                                visible: !!links.youtube_id
                                     videoId: links.youtube_id
                                   }
+                            Rectangle {
+                                visible: !links.youtube_id
+                                    width: parent.width
+                                    height: parent.width * (9/16)
+                                    color: "black"
+
+                                    Text {
+                                        text: "No video available"
+                                        color: "white"
+                                        font.pixelSize: sp(16)
+                                        font.weight: Font.Bold
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                    }
+                                }
                         }
 
                         Column {
@@ -174,6 +192,8 @@ Page {
                                         text: launch_site.site_name_long
                                         font.pixelSize: sp(12)
                                         font.family: "Helvetica"
+                                        width: parent.width
+                                        wrapMode: Text.WordWrap
                                     }
                                 }
                                 Column {
@@ -254,7 +274,7 @@ Page {
                 anchors.fill: parent
                 anchors.margins: -dp(10)
                 color: "white"
-                border.color: black
+                border.color: "black"
                 border.width: dp(0)
                 radius: 30
             }
